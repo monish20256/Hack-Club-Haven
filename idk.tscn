@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dy4nyp5cgorxw"]
+
+[ext_resource type="Texture2D" uid="uid://d00y4gy05vb34" path="res://OIP.jpg" id="1_cdowr"]
+[ext_resource type="Script" uid="uid://boa5scnw8xkf7" path="res://camera_2d.gd" id="2_7ibg8"]
+
+[node name="idk" type="Node2D" unique_id=78942738]
+
+[node name="placeholder background" type="Sprite2D" parent="." unique_id=1163952134]
+position = Vector2(2, -205.99994)
+scale = Vector2(4.4489794, 9.981817)
+texture = ExtResource("1_cdowr")
+
+[node name="Player" type="Node2D" parent="." unique_id=125214984]
+position = Vector2(0, 1.5258789e-05)
+scale = Vector2(1, 1.0000001)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1978750328]
+script = ExtResource("2_7ibg8")

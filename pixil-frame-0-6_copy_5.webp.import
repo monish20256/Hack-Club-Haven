@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqu3xynfmtm14"
-path="res://.godot/imported/pixil-frame-0-7.webp-37152264e7882b2f0e33d80531656875.ctex"
+uid="uid://ftk7mvfgnobv"
+path="res://.godot/imported/pixil-frame-0-6_copy_5.webp-475faf960e255cd301faa359dd9c3ed7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pixil-frame-0-7.webp"
-dest_files=["res://.godot/imported/pixil-frame-0-7.webp-37152264e7882b2f0e33d80531656875.ctex"]
+source_file="res://pixil-frame-0-6_copy_5.webp"
+dest_files=["res://.godot/imported/pixil-frame-0-6_copy_5.webp-475faf960e255cd301faa359dd9c3ed7.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d28q1oug00ict"
-path="res://.godot/imported/tilt right.png-113b6f733b4a84cf32ca224169d08c2b.ctex"
+uid="uid://b10onudgpu38h"
+path="res://.godot/imported/7410fd15.png-7c3450e7a9a437d1bb79887562bc51bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tilt right.png"
-dest_files=["res://.godot/imported/tilt right.png-113b6f733b4a84cf32ca224169d08c2b.ctex"]
+source_file="res://7410fd15.png"
+dest_files=["res://.godot/imported/7410fd15.png-7c3450e7a9a437d1bb79887562bc51bf.ctex"]
 
 [params]
 

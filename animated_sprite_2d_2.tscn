@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://d17xklja1rmcm"]
+
+[ext_resource type="Texture2D" uid="uid://ck4vi7xgj77mu" path="res://pixil-frame-0 (3).png" id="1_0uv7j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpjcp"]
+atlas = ExtResource("1_0uv7j")
+region = Rect2(34, 0, 33, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhfnw"]
+atlas = ExtResource("1_0uv7j")
+region = Rect2(1, 0, 33, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kne1u"]
+atlas = ExtResource("1_0uv7j")
+region = Rect2(1, 0, 33, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e80uo"]
+atlas = ExtResource("1_0uv7j")
+region = Rect2(67, 0, 33, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jepwt"]
+animations = [{
+"frames": [],
+"loop": 1,
+"name": &"Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpjcp")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhfnw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kne1u")
+}],
+"loop": 1,
+"name": &"Left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e80uo")
+}],
+"loop": 1,
+"name": &"Right",
+"speed": 5.0
+}]
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" unique_id=803642829]
+sprite_frames = SubResource("SpriteFrames_jepwt")
+animation = &"Death"
+autoplay = "Idle"

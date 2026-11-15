@@ -1,0 +1,328 @@
+[gd_scene format=3 uid="uid://elst0xn32iil"]
+
+[ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://Player.tscn" id="1_wbfu4"]
+[ext_resource type="Texture2D" uid="uid://d00y4gy05vb34" path="res://OIP.jpg" id="2_r0x5m"]
+[ext_resource type="Script" uid="uid://80kl10p8d3vr" path="res://player.gd" id="2_xkndl"]
+[ext_resource type="Script" uid="uid://c0wqfmwmm82vp" path="res://gpu_particles_2d.gd" id="3_u44n3"]
+[ext_resource type="Script" uid="uid://bqjbnbfd7jlob" path="res://camera.gd" id="5_t88pq"]
+[ext_resource type="PackedScene" uid="uid://btgevov8r6ddx" path="res://Asteroids.tscn" id="7_3mrqo"]
+[ext_resource type="PackedScene" uid="uid://b4drmqkrgrdr5" path="res://Asteroid spawner.tscn" id="8_joorw"]
+
+[sub_resource type="Gradient" id="Gradient_3mrqo"]
+offsets = PackedFloat32Array(0, 0.061926607, 0.41972476, 0.63073397, 0.809633)
+colors = PackedColorArray(0.68235296, 0.60784316, 0.8392157, 1, 0.07058824, 0.047058824, 0.14117648, 1, 0.2319641, 0.116661206, 0.23347574, 1, 0.5803922, 0.2784314, 0.48235294, 1, 0.90588236, 0.69803923, 0.4745098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sgkol"]
+gradient = SubResource("Gradient_3mrqo")
+
+[sub_resource type="Curve" id="Curve_t88pq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.14741033, 1), 0.0, 0.0, 0, 0, Vector2(0.44223103, 0.70247936), 0.0, 0.0, 0, 0, Vector2(0.95219123, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_r0x5m"]
+curve = SubResource("Curve_t88pq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jepwt"]
+lifetime_randomness = 0.7
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 0.01
+angle_min = 1.0728835e-05
+angle_max = 612.60004
+spread = 180.0
+initial_velocity_max = 153.7
+gravity = Vector3(0, 0, 100)
+scale_min = 87.25
+scale_max = 100.0
+scale_curve = SubResource("CurveTexture_r0x5m")
+color_ramp = SubResource("GradientTexture1D_sgkol")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bl17"]
+size = Vector2(1310, 38)
+
+[sub_resource type="Gradient" id="Gradient_xkndl"]
+offsets = PackedFloat32Array(0, 0.30046403, 0.44663572, 0.6693736, 0.8317865, 0.9984375, 1)
+colors = PackedColorArray(1, 0.8156863, 0, 1, 1, 0.36078432, 0, 1, 0.9874214, 0.3380935, 0, 1, 0.8, 0, 0, 1, 0.9647059, 0, 0, 1, 0.9950824, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jepwt"]
+gradient = SubResource("Gradient_xkndl")
+
+[sub_resource type="Curve" id="Curve_u44n3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.52124655, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_sb48q"]
+curve = SubResource("Curve_u44n3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2bl17"]
+emission_shape = 1
+emission_sphere_radius = 13.39
+use_rotation_velocity_3d = true
+rotation_velocity_3d_min = Vector3(0, 0, 0)
+rotation_velocity_3d_max = Vector3(100, 100, 100)
+gravity = Vector3(0, 98, 0)
+scale_min = 0.0
+scale_max = 14.09
+scale_curve = SubResource("CurveTexture_sb48q")
+color_ramp = SubResource("GradientTexture1D_jepwt")
+
+[sub_resource type="Environment" id="Environment_8t6a0"]
+background_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 1.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t88pq"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 250.0
+angle_min = 1.0728835e-05
+angle_max = 720.0
+spread = 0.0
+initial_velocity_max = 43.7
+gravity = Vector3(0, 0, 0)
+scale_max = 7.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p0lqm"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 300.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 98, 0)
+scale_max = 10.0
+color = Color(1, 0.93333334, 0, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ooxcw"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 300.0
+spread = 0.0
+gravity = Vector3(0, 98, 0)
+scale_min = 4.0
+scale_max = 7.0
+color = Color(0.8235294, 1, 1, 1)
+
+[sub_resource type="GDScript" id="GDScript_ddoks"]
+script/source = "extends Area2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var player: CharacterBody2D = $\"../Player\"
+@onready var camera: Camera2D = $\"../Camera\"
+@onready var asteroid_spawner: Node2D = $\"../Asteroid Spawner\"
+
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+func _process(delta: float) -> void:
+	if player.position.y < -5900:
+ # Replace with function body.
+		player.position.y += 7000
+		camera.position.y += 7000
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8t6a0"]
+size = Vector2(2941, 154.5)
+
+[sub_resource type="GDScript" id="GDScript_2bl17"]
+script/source = "extends Node2D
+@export var asteroid_scene: PackedScene
+@onready var player: CharacterBody2D = $\"../Player\"
+var asteroid_count = 10
+func spawn_asteroids():
+	for i in range(asteroid_count):
+		var asteroid = asteroid_scene.instantiate()
+		asteroid.global_position = Vector2(randf_range(630, -630),randf_range(-4900, 100))
+		get_tree().current_scene.add_child.call_deferred(asteroid)
+func _process(delta: float) -> void:
+	if player.position.y < -5853.0:
+		asteroid_count += 1
+		print (\"asteroid count increased\")
+		spawn_asteroids()
+
+func _ready():
+	spawn_asteroids()
+"
+
+[node name="Game" type="Node2D" unique_id=1402724094]
+
+[node name="Oip" type="Sprite2D" parent="." unique_id=1565748673]
+position = Vector2(17.000002, -2427)
+scale = Vector2(3.7117345, 42.877274)
+texture = ExtResource("2_r0x5m")
+
+[node name="Oip2" type="Sprite2D" parent="." unique_id=847416927]
+position = Vector2(795, 4851)
+scale = Vector2(3.7117345, 35.81818)
+texture = ExtResource("2_r0x5m")
+
+[node name="Black hole bottom" type="GPUParticles2D" parent="." unique_id=1981364968]
+position = Vector2(-1, 207)
+amount = 50
+lifetime = 6.85
+process_material = SubResource("ParticleProcessMaterial_jepwt")
+
+[node name="Camera" type="Camera2D" parent="." unique_id=384878662]
+position = Vector2(0, -142)
+scale = Vector2(1e-05, 1e-05)
+script = ExtResource("5_t88pq")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Camera" unique_id=60675770]
+position = Vector2(-500000.03, -35000000)
+scale = Vector2(100000.01, 100000.01)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera/StaticBody2D" unique_id=6192640]
+position = Vector2(-10, 3.0517578e-05)
+shape = SubResource("RectangleShape2D_2bl17")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Camera" unique_id=1534737957]
+position = Vector2(-100000, 36000004)
+scale = Vector2(100000.01, 100000.01)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera/StaticBody2D2" unique_id=1794728256]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_2bl17")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Camera" unique_id=167379452]
+position = Vector2(-60300004, 7200001)
+rotation = 1.5707964
+scale = Vector2(100000.01, 100000.01)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera/StaticBody2D3" unique_id=2078048817]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_2bl17")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Camera" unique_id=1148033056]
+position = Vector2(60700004, 2600000.5)
+rotation = 1.5707964
+scale = Vector2(100000.01, 100000.01)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera/StaticBody2D4" unique_id=1481815459]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_2bl17")
+
+[node name="Player" parent="." unique_id=196855723 instance=ExtResource("1_wbfu4")]
+scale = Vector2(2, 2)
+script = ExtResource("2_xkndl")
+
+[node name="Fire particles" type="GPUParticles2D" parent="Player" unique_id=1327313371]
+position = Vector2(10.000003, 2.3333335)
+scale = Vector2(1.0000004, 1.0000004)
+amount = 300
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_2bl17")
+script = ExtResource("3_u44n3")
+
+[node name="Fire particles2" type="GPUParticles2D" parent="Player" unique_id=32671660]
+position = Vector2(-11, 1.6666671)
+scale = Vector2(1.0000005, 1.0000005)
+amount = 300
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_2bl17")
+script = ExtResource("3_u44n3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1631660636]
+environment = SubResource("Environment_8t6a0")
+
+[node name="Stars" type="Node2D" parent="." unique_id=1332315700]
+position = Vector2(8, -842)
+
+[node name="GPUParticles2D13" type="GPUParticles2D" parent="Stars" unique_id=1977078564]
+position = Vector2(276, 394)
+amount = 100
+lifetime = 0.15000000000000002
+speed_scale = 0.05
+explosiveness = 0.25
+process_material = SubResource("ParticleProcessMaterial_t88pq")
+
+[node name="GPUParticles2D11" type="GPUParticles2D" parent="Stars" unique_id=1989902906]
+position = Vector2(-397, -336)
+amount = 100
+lifetime = 0.1
+speed_scale = 0.05
+process_material = SubResource("ParticleProcessMaterial_t88pq")
+
+[node name="GPUParticles2D14" type="GPUParticles2D" parent="Stars" unique_id=1231229284]
+position = Vector2(329, -2290)
+amount = 100
+lifetime = 0.1
+speed_scale = 0.05
+process_material = SubResource("ParticleProcessMaterial_t88pq")
+
+[node name="Y Stars" type="Node2D" parent="." unique_id=126527392]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Y Stars" unique_id=1579151288]
+position = Vector2(-348, -515)
+amount = 75
+lifetime = 0.5
+speed_scale = 0.5
+explosiveness = 0.53
+process_material = SubResource("ParticleProcessMaterial_p0lqm")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Y Stars" unique_id=385045281]
+position = Vector2(356, -1305)
+amount = 100
+lifetime = 0.05
+speed_scale = 0.05
+process_material = SubResource("ParticleProcessMaterial_p0lqm")
+
+[node name="GPUParticles2D5" type="GPUParticles2D" parent="Y Stars" unique_id=820605410]
+position = Vector2(-487, -4207)
+amount = 100
+lifetime = 0.05
+speed_scale = 0.05
+process_material = SubResource("ParticleProcessMaterial_p0lqm")
+
+[node name="B Stars" type="Node2D" parent="." unique_id=105462944]
+
+[node name="GPUParticles2D6" type="GPUParticles2D" parent="B Stars" unique_id=1882108910]
+position = Vector2(-308, -2543)
+amount = 75
+lifetime = 0.15000000000000002
+speed_scale = 0.05
+process_material = SubResource("ParticleProcessMaterial_ooxcw")
+
+[node name="GPUParticles2D6" type="GPUParticles2D" parent="B Stars/GPUParticles2D6" unique_id=1456602501]
+position = Vector2(382, -2133)
+amount = 75
+lifetime = 0.15000000000000002
+speed_scale = 0.05
+process_material = SubResource("ParticleProcessMaterial_ooxcw")
+
+[node name="GPUParticles2D10" type="GPUParticles2D" parent="B Stars" unique_id=1456624544]
+position = Vector2(45, -4895)
+amount = 75
+lifetime = 0.15000000000000002
+speed_scale = 0.05
+process_material = SubResource("ParticleProcessMaterial_ooxcw")
+
+[node name="GPUParticles2D11" type="GPUParticles2D" parent="B Stars" unique_id=1546537787]
+position = Vector2(90, -9790)
+amount = 75
+lifetime = 0.15000000000000002
+speed_scale = 0.05
+process_material = SubResource("ParticleProcessMaterial_ooxcw")
+
+[node name="GPUParticles2D9" type="GPUParticles2D" parent="B Stars" unique_id=1241732288]
+position = Vector2(-242, -3580)
+amount = 75
+lifetime = 0.15000000000000002
+speed_scale = 0.05
+process_material = SubResource("ParticleProcessMaterial_ooxcw")
+
+[node name="Loop" type="Area2D" parent="." unique_id=1926107430]
+script = SubResource("GDScript_ddoks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Loop" unique_id=314187815]
+position = Vector2(-17, -5933)
+shape = SubResource("RectangleShape2D_8t6a0")
+
+[node name="Asteroid Spawner" parent="." unique_id=149780 instance=ExtResource("8_joorw")]
+script = SubResource("GDScript_2bl17")
+asteroid_scene = ExtResource("7_3mrqo")
+
+[connection signal="body_entered" from="Loop" to="Camera" method="_on_loop_body_entered"]
+[connection signal="body_entered" from="Loop" to="Loop" method="_on_body_entered"]

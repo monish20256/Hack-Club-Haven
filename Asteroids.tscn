@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://btgevov8r6ddx"]
+
+[ext_resource type="Texture2D" uid="uid://deg3qbvenq8qy" path="res://23232.png" id="1_7dlat"]
+[ext_resource type="PackedScene" uid="uid://dqgvg7ek30774" path="res://killzone.tscn" id="2_4phb5"]
+
+[sub_resource type="GDScript" id="GDScript_7dlat"]
+script/source = "extends Sprite2D
+
+var frames
+
+func _ready() -> void:
+	frames = texture.get_width() / region_rect.size.x
+	var random_index = randi_range(0, frames - 1)
+	region_rect.position.x = random_index * region_rect.size.x
+
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2bl17"]
+radius = 19.026299
+
+[sub_resource type="CurveTexture" id="CurveTexture_sgkol"]
+
+[sub_resource type="Gradient" id="Gradient_ooxcw"]
+offsets = PackedFloat32Array(0, 0.77290076, 1)
+colors = PackedColorArray(0.326184, 0.326184, 0.32618397, 1, 0.56664884, 0.56664884, 0.56664884, 1, 0.53224236, 0.53224236, 0.53224236, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p0lqm"]
+gradient = SubResource("Gradient_ooxcw")
+
+[sub_resource type="Curve" id="Curve_7dlat"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7254237, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jepwt"]
+curve = SubResource("Curve_7dlat")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2bl17"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 51.38
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+angle_curve = SubResource("CurveTexture_sgkol")
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 364.1
+initial_velocity_max = 373.69998
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_jepwt")
+color = Color(0.7279856, 0.7279857, 0.7279856, 1)
+color_ramp = SubResource("GradientTexture1D_p0lqm")
+
+[node name="Area2D" type="Area2D" unique_id=1880739063]
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1426562167]
+scale = Vector2(4, 4)
+texture = ExtResource("1_7dlat")
+region_enabled = true
+region_rect = Rect2(0, 0, 27, 27)
+script = SubResource("GDScript_7dlat")
+
+[node name="Killzone" parent="." unique_id=1383173145 instance=ExtResource("2_4phb5")]
+position = Vector2(13, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" unique_id=1471088645]
+shape = SubResource("CircleShape2D_2bl17")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=229428277]
+position = Vector2(13, 7)
+shape = SubResource("CircleShape2D_2bl17")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1293038920]
+position = Vector2(9, -28)
+amount = 3
+lifetime = 0.2
+speed_scale = 0.25
+explosiveness = 0.3
+process_material = SubResource("ParticleProcessMaterial_2bl17")

@@ -18,9 +18,15 @@ func _process(delta: float) -> void:
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2bl17"]
-radius = 19.026299
+radius = 12.0415945
+
+[sub_resource type="Curve" id="Curve_4phb5"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_sgkol"]
+curve = SubResource("Curve_4phb5")
 
 [sub_resource type="Gradient" id="Gradient_ooxcw"]
 offsets = PackedFloat32Array(0, 0.77290076, 1)

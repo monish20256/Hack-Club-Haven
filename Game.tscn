@@ -3,14 +3,19 @@
 [ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://Player.tscn" id="1_wbfu4"]
 [ext_resource type="Texture2D" uid="uid://d00y4gy05vb34" path="res://OIP.jpg" id="2_r0x5m"]
 [ext_resource type="Script" uid="uid://80kl10p8d3vr" path="res://player.gd" id="2_xkndl"]
+[ext_resource type="Texture2D" uid="uid://c3urajulo045j" path="res://Screenshot 2026-11-15 110049.png" id="2_yx171"]
 [ext_resource type="PackedScene" uid="uid://dqgvg7ek30774" path="res://killzone.tscn" id="3_joorw"]
 [ext_resource type="Script" uid="uid://c0wqfmwmm82vp" path="res://gpu_particles_2d.gd" id="3_u44n3"]
+[ext_resource type="Texture2D" uid="uid://m3xf835req65" path="res://Screenshot 2026-11-15 110323.png" id="3_yhmtn"]
 [ext_resource type="Script" uid="uid://bqjbnbfd7jlob" path="res://camera.gd" id="5_t88pq"]
 [ext_resource type="PackedScene" uid="uid://btgevov8r6ddx" path="res://Asteroids.tscn" id="7_3mrqo"]
 [ext_resource type="PackedScene" uid="uid://b4drmqkrgrdr5" path="res://Asteroid spawner.tscn" id="8_joorw"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bl17"]
-size = Vector2(1310, 38)
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8t6a0"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 900.0
+scale_max = 3.0
 
 [sub_resource type="Gradient" id="Gradient_3mrqo"]
 offsets = PackedFloat32Array(0, 0.32296652, 0.55263156, 0.6770335, 0.7966507, 0.8779904)
@@ -58,8 +63,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	pass
 "
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2bl17"]
-radius = 60.728905
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_joorw"]
+size = Vector2(1262, 26)
 
 [sub_resource type="Gradient" id="Gradient_xkndl"]
 offsets = PackedFloat32Array(0, 0.30046403, 0.44663572, 0.6693736, 0.8317865, 0.9984375, 1)
@@ -83,7 +88,7 @@ rotation_velocity_3d_min = Vector3(0, 0, 0)
 rotation_velocity_3d_max = Vector3(100, 100, 100)
 gravity = Vector3(0, 98, 0)
 scale_min = 0.0
-scale_max = 14.09
+scale_max = 7.0
 scale_curve = SubResource("CurveTexture_sb48q")
 color_ramp = SubResource("GradientTexture1D_jepwt")
 
@@ -93,36 +98,6 @@ glow_enabled = true
 glow_normalized = true
 glow_bloom = 1.0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t88pq"]
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 250.0
-angle_min = 1.0728835e-05
-angle_max = 720.0
-spread = 0.0
-initial_velocity_max = 43.7
-gravity = Vector3(0, 0, 0)
-scale_max = 7.0
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p0lqm"]
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 300.0
-initial_velocity_max = 2.0
-gravity = Vector3(0, 98, 0)
-scale_max = 10.0
-color = Color(1, 0.93333334, 0, 1)
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ooxcw"]
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 300.0
-spread = 0.0
-gravity = Vector3(0, 98, 0)
-scale_min = 4.0
-scale_max = 7.0
-color = Color(0.8235294, 1, 1, 1)
-
 [sub_resource type="GDScript" id="GDScript_ddoks"]
 script/source = "extends Area2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
@@ -130,7 +105,7 @@ script/source = "extends Area2D
 @onready var camera: Camera2D = $\"../Camera\"
 @onready var asteroid_spawner: Node2D = $\"../Asteroid Spawner\"
 @onready var black_hole_bottom: GPUParticles2D = $\"../Black hole bottom\"
-
+var loopamount = 0
 
 func _ready() -> void:
 	pass # Replace with function body.
@@ -142,6 +117,22 @@ func _process(delta: float) -> void:
 		player.position.y += 7000
 		camera.position.y += 7000
 		black_hole_bottom.position.y += 6900
+		loopamount += 1
+"
+
+[sub_resource type="GDScript" id="GDScript_8t6a0"]
+script/source = "extends Label
+@onready var loop: Area2D = $\"..\"
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+	print (\"You are me\")
+	
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8t6a0"]
@@ -160,9 +151,9 @@ func spawn_asteroids():
 		asteroid.global_position = Vector2(randf_range(630, -630),randf_range(-4900, 100))
 		get_tree().current_scene.add_child.call_deferred(asteroid)
 func _process(delta: float) -> void:
-	timer.start()
 	if player.position.y < -5853.0:
-		asteroid_count += 3
+		timer.start()
+		asteroid_count += 1
 		spawn_asteroids()
 		print (\"asteroid count increased\")
 
@@ -171,6 +162,9 @@ func _ready():
 	spawn_asteroids()
 "
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bl17"]
+size = Vector2(1310, 38)
+
 [node name="Game" type="Node2D" unique_id=1402724094]
 
 [node name="Oip" type="Sprite2D" parent="." unique_id=1565748673]
@@ -178,10 +172,101 @@ position = Vector2(7.000001, -2510)
 scale = Vector2(3.7117345, 42.877274)
 texture = ExtResource("2_r0x5m")
 
+[node name="Star" type="GPUParticles2D" parent="Oip" unique_id=1281049558]
+position = Vector2(12, -1391)
+amount = 75
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
+
+[node name="star" type="GPUParticles2D" parent="Oip/Star" unique_id=1126767306]
+position = Vector2(28, 1138)
+amount = 75
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
+
+[node name="Star" type="GPUParticles2D" parent="Oip/Star" unique_id=1754828560]
+position = Vector2(12, -1391)
+amount = 75
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
+
+[node name="star" type="GPUParticles2D" parent="Oip/Star/Star" unique_id=316768616]
+position = Vector2(-7, -2934)
+amount = 75
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
+
+[node name="Controls" type="Sprite2D" parent="." unique_id=2124429927]
+position = Vector2(302, -343)
+scale = Vector2(0.6705539, 0.77807486)
+texture = ExtResource("2_yx171")
+
+[node name="Play instructions" type="Sprite2D" parent="." unique_id=171240003]
+position = Vector2(-335, -379)
+texture = ExtResource("3_yhmtn")
+
 [node name="Oip2" type="Sprite2D" parent="." unique_id=847416927]
 position = Vector2(795, 4851)
 scale = Vector2(3.7117345, 35.81818)
 texture = ExtResource("2_r0x5m")
+
+[node name="Black hole bottom" type="GPUParticles2D" parent="." unique_id=1981364968]
+position = Vector2(-1, 58)
+amount = 100
+lifetime = 2.3
+explosiveness = 0.04
+process_material = SubResource("ParticleProcessMaterial_jepwt")
+script = SubResource("GDScript_3mrqo")
+
+[node name="Killzone" parent="Black hole bottom" unique_id=1383173145 instance=ExtResource("3_joorw")]
+position = Vector2(8, 73)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Black hole bottom/Killzone" unique_id=1500277578]
+position = Vector2(7, 53)
+shape = SubResource("RectangleShape2D_joorw")
+
+[node name="Player" parent="." unique_id=196855723 instance=ExtResource("1_wbfu4")]
+position = Vector2(0, -89)
+scale = Vector2(2.5, 2.5)
+script = ExtResource("2_xkndl")
+
+[node name="Fire particles" type="GPUParticles2D" parent="Player" unique_id=1327313371]
+position = Vector2(6.75, 2.2499998)
+scale = Vector2(1.0000004, 1.0000004)
+amount = 300
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_2bl17")
+script = ExtResource("3_u44n3")
+
+[node name="Fire particles2" type="GPUParticles2D" parent="Player" unique_id=32671660]
+position = Vector2(-6.7999997, 2.4)
+scale = Vector2(1.0000005, 1.0000005)
+amount = 300
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_2bl17")
+script = ExtResource("3_u44n3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1631660636]
+environment = SubResource("Environment_8t6a0")
+
+[node name="Loop" type="Area2D" parent="." unique_id=1926107430]
+script = SubResource("GDScript_ddoks")
+
+[node name="Label" type="Label" parent="Loop" unique_id=1655773060]
+offset_right = 40.0
+offset_bottom = 23.0
+script = SubResource("GDScript_8t6a0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Loop" unique_id=314187815]
+position = Vector2(-17, -5933)
+shape = SubResource("RectangleShape2D_8t6a0")
+
+[node name="Asteroid Spawner" parent="." unique_id=149780 instance=ExtResource("8_joorw")]
+script = SubResource("GDScript_2bl17")
+asteroid_scene = ExtResource("7_3mrqo")
+
+[node name="Timer" type="Timer" parent="Asteroid Spawner" unique_id=644492892]
+wait_time = 5.0
 
 [node name="Camera" type="Camera2D" parent="." unique_id=384878662]
 position = Vector2(0, -142)
@@ -226,143 +311,65 @@ collision_mask = 2
 position = Vector2(4, 0)
 shape = SubResource("RectangleShape2D_2bl17")
 
-[node name="Black hole bottom" type="GPUParticles2D" parent="." unique_id=1981364968]
-position = Vector2(-1, 58)
-amount = 100
-lifetime = 2.3
-explosiveness = 0.04
-process_material = SubResource("ParticleProcessMaterial_jepwt")
-script = SubResource("GDScript_3mrqo")
-
-[node name="Killzone" parent="Black hole bottom" unique_id=1383173145 instance=ExtResource("3_joorw")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Black hole bottom/Killzone" unique_id=1500277578]
-position = Vector2(0, 55)
-shape = SubResource("CircleShape2D_2bl17")
-
-[node name="Player" parent="." unique_id=196855723 instance=ExtResource("1_wbfu4")]
-position = Vector2(0, -89)
-scale = Vector2(4, 4)
-script = ExtResource("2_xkndl")
-
-[node name="Fire particles" type="GPUParticles2D" parent="Player" unique_id=1327313371]
-position = Vector2(6.75, 2.2499998)
-scale = Vector2(1.0000004, 1.0000004)
-amount = 300
-lifetime = 2.0
-process_material = SubResource("ParticleProcessMaterial_2bl17")
-script = ExtResource("3_u44n3")
-
-[node name="Fire particles2" type="GPUParticles2D" parent="Player" unique_id=32671660]
-position = Vector2(-4.499999, 2.25)
-scale = Vector2(1.0000005, 1.0000005)
-amount = 300
-lifetime = 2.0
-process_material = SubResource("ParticleProcessMaterial_2bl17")
-script = ExtResource("3_u44n3")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1631660636]
-environment = SubResource("Environment_8t6a0")
-
-[node name="Stars" type="Node2D" parent="." unique_id=1332315700]
-position = Vector2(8, -842)
-
-[node name="GPUParticles2D13" type="GPUParticles2D" parent="Stars" unique_id=1977078564]
-position = Vector2(276, 394)
-amount = 100
-lifetime = 0.15000000000000002
-speed_scale = 0.05
-explosiveness = 0.25
-process_material = SubResource("ParticleProcessMaterial_t88pq")
-
-[node name="GPUParticles2D11" type="GPUParticles2D" parent="Stars" unique_id=1989902906]
-position = Vector2(-397, -336)
-amount = 100
-lifetime = 0.1
-speed_scale = 0.05
-process_material = SubResource("ParticleProcessMaterial_t88pq")
-
-[node name="GPUParticles2D14" type="GPUParticles2D" parent="Stars" unique_id=1231229284]
-position = Vector2(362, -1889)
-amount = 100
-lifetime = 0.1
-speed_scale = 0.05
-process_material = SubResource("ParticleProcessMaterial_t88pq")
-
-[node name="Y Stars" type="Node2D" parent="." unique_id=126527392]
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Y Stars" unique_id=1579151288]
-position = Vector2(-348, -515)
+[node name="Star" type="GPUParticles2D" parent="." unique_id=1564679484]
+position = Vector2(12, -1391)
 amount = 75
-lifetime = 0.5
 speed_scale = 0.5
-explosiveness = 0.53
-process_material = SubResource("ParticleProcessMaterial_p0lqm")
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="Y Stars" unique_id=385045281]
-position = Vector2(356, -1305)
-amount = 100
-lifetime = 0.05
-speed_scale = 0.05
-process_material = SubResource("ParticleProcessMaterial_p0lqm")
-
-[node name="GPUParticles2D5" type="GPUParticles2D" parent="Y Stars" unique_id=820605410]
-position = Vector2(-487, -4207)
-amount = 100
-lifetime = 0.05
-speed_scale = 0.05
-process_material = SubResource("ParticleProcessMaterial_p0lqm")
-
-[node name="B Stars" type="Node2D" parent="." unique_id=105462944]
-
-[node name="GPUParticles2D6" type="GPUParticles2D" parent="B Stars" unique_id=1882108910]
-position = Vector2(-308, -2543)
+[node name="star" type="GPUParticles2D" parent="Star" unique_id=217658119]
+position = Vector2(28, 1138)
 amount = 75
-lifetime = 0.15000000000000002
-speed_scale = 0.05
-process_material = SubResource("ParticleProcessMaterial_ooxcw")
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
 
-[node name="GPUParticles2D6" type="GPUParticles2D" parent="B Stars/GPUParticles2D6" unique_id=1456602501]
-position = Vector2(668, -1418)
+[node name="Star" type="GPUParticles2D" parent="Star" unique_id=523679439]
+position = Vector2(12, -1391)
 amount = 75
-lifetime = 0.15000000000000002
-speed_scale = 0.05
-process_material = SubResource("ParticleProcessMaterial_ooxcw")
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
 
-[node name="GPUParticles2D10" type="GPUParticles2D" parent="B Stars" unique_id=1456624544]
-position = Vector2(45, -4895)
+[node name="star" type="GPUParticles2D" parent="Star/Star" unique_id=1727911050]
+position = Vector2(-7, -2934)
 amount = 75
-lifetime = 0.15000000000000002
-speed_scale = 0.05
-process_material = SubResource("ParticleProcessMaterial_ooxcw")
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
 
-[node name="GPUParticles2D11" type="GPUParticles2D" parent="B Stars" unique_id=1546537787]
-position = Vector2(90, -9790)
+[node name="Star2" type="GPUParticles2D" parent="Star" unique_id=1950797233]
+position = Vector2(-80, 2370)
 amount = 75
-lifetime = 0.15000000000000002
-speed_scale = 0.05
-process_material = SubResource("ParticleProcessMaterial_ooxcw")
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
 
-[node name="GPUParticles2D9" type="GPUParticles2D" parent="B Stars" unique_id=1241732288]
-position = Vector2(-242, -3580)
+[node name="star" type="GPUParticles2D" parent="Star/Star2" unique_id=898094395]
+position = Vector2(28, 1138)
 amount = 75
-lifetime = 0.15000000000000002
-speed_scale = 0.05
-process_material = SubResource("ParticleProcessMaterial_ooxcw")
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
 
-[node name="Loop" type="Area2D" parent="." unique_id=1926107430]
-script = SubResource("GDScript_ddoks")
+[node name="Star" type="GPUParticles2D" parent="Star/Star2" unique_id=787857889]
+position = Vector2(12, -1391)
+amount = 75
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Loop" unique_id=314187815]
-position = Vector2(-17, -5933)
-shape = SubResource("RectangleShape2D_8t6a0")
+[node name="star" type="GPUParticles2D" parent="Star/Star2/Star" unique_id=1517794449]
+position = Vector2(-7, -2934)
+amount = 75
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
 
-[node name="Asteroid Spawner" parent="." unique_id=149780 instance=ExtResource("8_joorw")]
-script = SubResource("GDScript_2bl17")
-asteroid_scene = ExtResource("7_3mrqo")
+[node name="star2" type="GPUParticles2D" parent="." unique_id=1724951483]
+position = Vector2(-34, -4015)
+amount = 75
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
 
-[node name="Timer" type="Timer" parent="Asteroid Spawner" unique_id=644492892]
-wait_time = 5.0
+[node name="star2" type="GPUParticles2D" parent="star2" unique_id=382992008]
+position = Vector2(-34, -4015)
+amount = 75
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_8t6a0")
 
-[connection signal="body_entered" from="Loop" to="Camera" method="_on_loop_body_entered"]
 [connection signal="body_entered" from="Loop" to="Loop" method="_on_body_entered"]
+[connection signal="body_entered" from="Loop" to="Camera" method="_on_loop_body_entered"]

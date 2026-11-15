@@ -1,5 +1,7 @@
 extends Camera2D
 var speed = 100
+@onready var controls_2: Label = $"../Controls2"
+
 var started = false
 func _ready() -> void:
 	pass
@@ -8,5 +10,6 @@ func _process(delta: float) -> void:
 		started = true
 	if started:
 		position.y -= 200 * delta
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	pass

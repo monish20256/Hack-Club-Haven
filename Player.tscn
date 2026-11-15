@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ckudr8chj1kgo"]
 
 [ext_resource type="Texture2D" uid="uid://dqu3xynfmtm14" path="res://pixil-frame-0-7.webp" id="1_kpjcp"]
+[ext_resource type="Texture2D" uid="uid://d28q1oug00ict" path="res://tilt right.png" id="2_kpjcp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2bl17"]
 animations = [{
@@ -12,9 +13,12 @@ animations = [{
 "name": &"Idle",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kpjcp")
+}],
 "loop": 1,
-"name": &"new_animation",
+"name": &"Tilt right",
 "speed": 5.0
 }]
 
@@ -28,7 +32,7 @@ position = Vector2(4.9999995, -31.999998)
 rotation = -0.00095913716
 scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_2bl17")
-animation = &"Idle"
+animation = &"Tilt right"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1987095029]

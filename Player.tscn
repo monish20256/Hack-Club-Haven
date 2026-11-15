@@ -1,16 +1,12 @@
 [gd_scene format=3 uid="uid://ckudr8chj1kgo"]
 
-[ext_resource type="Texture2D" uid="uid://d0sp3pbu12ihy" path="res://rocket.webp" id="1_xhfnw"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kpjcp"]
-atlas = ExtResource("1_xhfnw")
-region = Rect2(32, 22, 32, 35)
+[ext_resource type="Texture2D" uid="uid://dqu3xynfmtm14" path="res://pixil-frame-0-7.webp" id="1_kpjcp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2bl17"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kpjcp")
+"texture": ExtResource("1_kpjcp")
 }],
 "loop": 1,
 "name": &"Idle",
@@ -23,20 +19,19 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2bl17"]
-radius = 3.0
-height = 18.0
+height = 42.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=196855723]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1821998768]
-position = Vector2(0, -12)
+position = Vector2(4.9999995, -31.999998)
 rotation = -0.00095913716
 scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_2bl17")
 animation = &"Idle"
 autoplay = "Idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=147923907]
-position = Vector2(0, -11)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1987095029]
+position = Vector2(0, -21)
 shape = SubResource("CapsuleShape2D_2bl17")
 disabled = true

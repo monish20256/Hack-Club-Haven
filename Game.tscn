@@ -1,47 +1,49 @@
 [gd_scene format=3 uid="uid://elst0xn32iil"]
 
 [ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://Player.tscn" id="1_wbfu4"]
+[ext_resource type="Script" uid="uid://80kl10p8d3vr" path="res://player.gd" id="2_xkndl"]
+[ext_resource type="Script" uid="uid://c0wqfmwmm82vp" path="res://gpu_particles_2d.gd" id="3_u44n3"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8t6a0"]
-normal = Vector2(-1, 0)
-distance = -120.0
+[sub_resource type="Gradient" id="Gradient_xkndl"]
+offsets = PackedFloat32Array(0, 0.30046403, 0.44663572, 0.6693736, 0.8317865, 0.9984375, 1)
+colors = PackedColorArray(1, 0.8156863, 0, 1, 1, 0.36078432, 0, 1, 0.9874214, 0.3380935, 0, 1, 0.8, 0, 0, 1, 0.9647059, 0, 0, 1, 0.9950824, 0, 0, 1, 1, 0, 0, 1)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2bl17"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jepwt"]
+gradient = SubResource("Gradient_xkndl")
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jepwt"]
+[sub_resource type="Curve" id="Curve_u44n3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.52124655, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p0lqm"]
+[sub_resource type="CurveTexture" id="CurveTexture_sb48q"]
+curve = SubResource("Curve_u44n3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2bl17"]
+emission_shape = 1
+emission_sphere_radius = 13.39
+use_rotation_velocity_3d = true
+rotation_velocity_3d_min = Vector3(0, 0, 0)
+rotation_velocity_3d_max = Vector3(100, 100, 100)
+gravity = Vector3(0, 98, 0)
+scale_min = 0.0
+scale_max = 14.09
+scale_curve = SubResource("CurveTexture_sb48q")
+color_ramp = SubResource("GradientTexture1D_jepwt")
 
 [node name="Game" type="Node2D" unique_id=1402724094]
 
 [node name="Player" parent="." unique_id=196855723 instance=ExtResource("1_wbfu4")]
+scale = Vector2(3, 3)
+script = ExtResource("2_xkndl")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=384878662]
+[node name="Fire particles" type="GPUParticles2D" parent="Player" unique_id=1327313371]
+position = Vector2(0, 4.3333335)
+scale = Vector2(1.0000002, 1.0000002)
+amount = 300
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_2bl17")
+script = ExtResource("3_u44n3")
+
+[node name="Camera" type="Camera2D" parent="." unique_id=384878662]
 position = Vector2(0, -142)
-zoom = Vector2(2, 2)
-
-[node name="Right Wall" type="StaticBody2D" parent="." unique_id=126965719]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Right Wall" unique_id=2115791408]
-position = Vector2(170, -68)
-rotation = -0.0024245933
-shape = SubResource("WorldBoundaryShape2D_8t6a0")
-
-[node name="Left Wall" type="StaticBody2D" parent="." unique_id=790315883]
-position = Vector2(-290, 0)
-rotation = 1.5668503
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Left Wall" unique_id=624704535]
-shape = SubResource("WorldBoundaryShape2D_2bl17")
-
-[node name="Lower wall" type="StaticBody2D" parent="." unique_id=858560692]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lower wall" unique_id=428349784]
-position = Vector2(0, 20)
-shape = SubResource("WorldBoundaryShape2D_jepwt")
-
-[node name="High wall" type="StaticBody2D" parent="." unique_id=344469314]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="High wall" unique_id=1043999448]
-position = Vector2(0, -305)
-shape = SubResource("WorldBoundaryShape2D_p0lqm")
+scale = Vector2(1e-05, 1e-05)

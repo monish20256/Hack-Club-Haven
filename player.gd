@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var dead = false
-var SPEED = 400.0
+var SPEED = 200.0
 
 func die():
 	if dead:
@@ -17,7 +17,7 @@ func _physics_process(delta: float) -> void:
 	var current_speed = SPEED
 
 	if Input.is_action_pressed("boost"):
-		current_speed = SPEED * 2
+		current_speed = SPEED * 4
 
 	velocity = Vector2.ZERO
 

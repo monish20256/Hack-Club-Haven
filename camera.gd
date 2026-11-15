@@ -1,6 +1,5 @@
 extends Camera2D
 var speed = 100
-@onready var controls_2: Label = $"../Controls2"
 
 var started = false
 func _ready() -> void:

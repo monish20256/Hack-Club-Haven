@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://4dl2rf6kxxcd"
+path="res://.godot/imported/Sidewalks and Skeletons - Crawlspace [NCS Release] (1).mp3-4a36cee14b07120bc56ed2e08163ca0d.mp3str"
+
+[deps]
+
+source_file="res://Sidewalks and Skeletons - Crawlspace [NCS Release] (1).mp3"
+dest_files=["res://.godot/imported/Sidewalks and Skeletons - Crawlspace [NCS Release] (1).mp3-4a36cee14b07120bc56ed2e08163ca0d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

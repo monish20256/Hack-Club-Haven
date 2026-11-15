@@ -5,11 +5,15 @@
 [ext_resource type="Script" uid="uid://80kl10p8d3vr" path="res://player.gd" id="2_xkndl"]
 [ext_resource type="Texture2D" uid="uid://c3urajulo045j" path="res://Screenshot 2026-11-15 110049.png" id="2_yx171"]
 [ext_resource type="PackedScene" uid="uid://dqgvg7ek30774" path="res://killzone.tscn" id="3_joorw"]
+[ext_resource type="Texture2D" uid="uid://ceocfrlywqkba" path="res://RED.webp" id="3_lvtmh"]
 [ext_resource type="Script" uid="uid://c0wqfmwmm82vp" path="res://gpu_particles_2d.gd" id="3_u44n3"]
 [ext_resource type="Texture2D" uid="uid://m3xf835req65" path="res://Screenshot 2026-11-15 110323.png" id="3_yhmtn"]
+[ext_resource type="Texture2D" uid="uid://yqqnj8f0kcjd" path="res://ORANGE.webp" id="4_yyih5"]
+[ext_resource type="Texture2D" uid="uid://bx5nv8cehp371" path="res://YELLOW.webp" id="5_qjyg3"]
 [ext_resource type="Script" uid="uid://bqjbnbfd7jlob" path="res://camera.gd" id="5_t88pq"]
 [ext_resource type="PackedScene" uid="uid://btgevov8r6ddx" path="res://Asteroids.tscn" id="7_3mrqo"]
 [ext_resource type="PackedScene" uid="uid://b4drmqkrgrdr5" path="res://Asteroid spawner.tscn" id="8_joorw"]
+[ext_resource type="AudioStream" uid="uid://dg3m6wsdapjp6" path="res://la peace.mp3" id="14_yyih5"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8t6a0"]
 particle_flag_disable_z = true
@@ -17,40 +21,10 @@ emission_shape = 1
 emission_sphere_radius = 900.0
 scale_max = 3.0
 
-[sub_resource type="Gradient" id="Gradient_3mrqo"]
-offsets = PackedFloat32Array(0, 0.32296652, 0.55263156, 0.6770335, 0.7966507, 0.8779904)
-colors = PackedColorArray(0.07057009, 0.022561705, 0.17212766, 1, 0.07058824, 0.047058824, 0.14117648, 1, 0.90588236, 0.69803923, 0.4745098, 1, 0.63346153, 0.30792487, 0.16037402, 1, 0.54225874, 0.3567294, 0.27157474, 1, 0.113033734, 5.4520107e-05, 0.15500078, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_sgkol"]
-gradient = SubResource("Gradient_3mrqo")
-
-[sub_resource type="Curve" id="Curve_t88pq"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.14741033, 1), 0.0, 0.0, 0, 0, Vector2(0.7107438, 1), 0.0, 0.0, 0, 0, Vector2(0.95219123, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="CurveTexture" id="CurveTexture_r0x5m"]
-curve = SubResource("Curve_t88pq")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jepwt"]
-lifetime_randomness = 0.7
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 0.01
-angle_min = 1.0728835e-05
-angle_max = 612.60004
-use_rotation_3d = true
-spread = 180.0
-initial_velocity_min = 215.59999
-initial_velocity_max = 477.61
-gravity = Vector3(0, 0, 100)
-scale_min = 87.25
-scale_max = 100.0
-scale_curve = SubResource("CurveTexture_r0x5m")
-color_ramp = SubResource("GradientTexture1D_sgkol")
-
-[sub_resource type="GDScript" id="GDScript_3mrqo"]
-script/source = "extends GPUParticles2D
+[sub_resource type="GDScript" id="GDScript_yhmtn"]
+script/source = "extends Node2D
 var speed = 100
+
 var started = false
 func _ready() -> void:
 	pass
@@ -59,12 +33,68 @@ func _process(delta: float) -> void:
 		started = true
 	if started:
 		position.y -= 200 * delta
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	pass
+
+
+func _on_timer_timeout() -> void:
+	pass # Replace with function body.
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_joorw"]
 size = Vector2(1262, 26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2bl17"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_lvtmh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yyih5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_qjyg3")
+}],
+"loop": 1,
+"name": &"Black",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_lvtmh"]
+script/source = "extends Sprite2D
+var speed = 100
+
+var started = false
+func _ready() -> void:
+	pass
+func _process(delta: float) -> void:
+	if Input.is_action_pressed(\"go up\") or Input.is_action_pressed(\"go back\") or Input.is_action_pressed(\"rotate left\") or Input.is_action_pressed(\"rotate right\"):
+		started = true
+	if started:
+		position.x -= -5000 * delta
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_p0lqm"]
+script/source = "extends Sprite2D
+var speed = 100
+
+var started = false
+func _ready() -> void:
+	pass
+func _process(delta: float) -> void:
+	if Input.is_action_pressed(\"go up\") or Input.is_action_pressed(\"go back\") or Input.is_action_pressed(\"rotate left\") or Input.is_action_pressed(\"rotate right\"):
+		started = true
+	if started:
+		position.x -= -5000 * delta
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	pass
+"
 
 [sub_resource type="Gradient" id="Gradient_xkndl"]
 offsets = PackedFloat32Array(0, 0.30046403, 0.44663572, 0.6693736, 0.8317865, 0.9984375, 1)
@@ -92,20 +122,13 @@ scale_max = 7.0
 scale_curve = SubResource("CurveTexture_sb48q")
 color_ramp = SubResource("GradientTexture1D_jepwt")
 
-[sub_resource type="Environment" id="Environment_8t6a0"]
-background_mode = 3
-glow_enabled = true
-glow_normalized = true
-glow_bloom = 1.0
-
 [sub_resource type="GDScript" id="GDScript_ddoks"]
 script/source = "extends Area2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var player: CharacterBody2D = $\"../Player\"
 @onready var camera: Camera2D = $\"../Camera\"
 @onready var asteroid_spawner: Node2D = $\"../Asteroid Spawner\"
-@onready var black_hole_bottom: GPUParticles2D = $\"../Black hole bottom\"
-var loopamount = 0
+@onready var black_hole_bottom: Node2D = $\"../Black hole bottom\"
 
 func _ready() -> void:
 	pass # Replace with function body.
@@ -116,27 +139,17 @@ func _process(delta: float) -> void:
  # Replace with function body.
 		player.position.y += 7000
 		camera.position.y += 7000
-		black_hole_bottom.position.y += 6900
-		loopamount += 1
-"
-
-[sub_resource type="GDScript" id="GDScript_8t6a0"]
-script/source = "extends Label
-@onready var loop: Area2D = $\"..\"
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	print (\"You are me\")
-	
+		black_hole_bottom.position.y += 7000
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8t6a0"]
 size = Vector2(2941, 154.5)
+
+[sub_resource type="Environment" id="Environment_8t6a0"]
+background_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 1.0
 
 [sub_resource type="GDScript" id="GDScript_2bl17"]
 script/source = "extends Node2D
@@ -151,10 +164,11 @@ func spawn_asteroids():
 		asteroid.global_position = Vector2(randf_range(630, -630),randf_range(-4900, 100))
 		get_tree().current_scene.add_child.call_deferred(asteroid)
 func _process(delta: float) -> void:
-	if player.position.y < -5853.0:
+	if player.position.y < -5859.0:
 		timer.start()
 		asteroid_count += 1
 		spawn_asteroids()
+		asteroid_count -40 
 		print (\"asteroid count increased\")
 
 
@@ -164,6 +178,20 @@ func _ready():
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2bl17"]
 size = Vector2(1310, 38)
+
+[sub_resource type="GDScript" id="GDScript_m4gww"]
+script/source = "extends AudioStreamPlayer2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [node name="Game" type="Node2D" unique_id=1402724094]
 
@@ -196,34 +224,41 @@ amount = 75
 speed_scale = 0.5
 process_material = SubResource("ParticleProcessMaterial_8t6a0")
 
-[node name="Controls" type="Sprite2D" parent="." unique_id=2124429927]
-position = Vector2(302, -343)
-scale = Vector2(0.6705539, 0.77807486)
-texture = ExtResource("2_yx171")
-
-[node name="Play instructions" type="Sprite2D" parent="." unique_id=171240003]
-position = Vector2(-335, -379)
-texture = ExtResource("3_yhmtn")
-
-[node name="Oip2" type="Sprite2D" parent="." unique_id=847416927]
-position = Vector2(795, 4851)
-scale = Vector2(3.7117345, 35.81818)
-texture = ExtResource("2_r0x5m")
-
-[node name="Black hole bottom" type="GPUParticles2D" parent="." unique_id=1981364968]
-position = Vector2(-1, 58)
-amount = 100
-lifetime = 2.3
-explosiveness = 0.04
-process_material = SubResource("ParticleProcessMaterial_jepwt")
-script = SubResource("GDScript_3mrqo")
+[node name="Black hole bottom" type="Node2D" parent="." unique_id=1485340534]
+position = Vector2(1, 0)
+script = SubResource("GDScript_yhmtn")
 
 [node name="Killzone" parent="Black hole bottom" unique_id=1383173145 instance=ExtResource("3_joorw")]
 position = Vector2(8, 73)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Black hole bottom/Killzone" unique_id=1500277578]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Black hole bottom/Killzone" unique_id=18484976]
 position = Vector2(7, 53)
 shape = SubResource("RectangleShape2D_joorw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Black hole bottom" unique_id=1827128810]
+position = Vector2(-1.9999999, 165.99998)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_2bl17")
+animation = &"Black"
+autoplay = "Black"
+frame_progress = 0.10606958
+
+[node name="Controls" type="Sprite2D" parent="." unique_id=2124429927]
+position = Vector2(418.5, -67.00001)
+scale = Vector2(0.47084546, 0.60294116)
+texture = ExtResource("2_yx171")
+script = SubResource("GDScript_lvtmh")
+
+[node name="Play instructions" type="Sprite2D" parent="." unique_id=171240003]
+position = Vector2(-528.00006, -64)
+scale = Vector2(0.7797428, 0.9045802)
+texture = ExtResource("3_yhmtn")
+script = SubResource("GDScript_p0lqm")
+
+[node name="Oip2" type="Sprite2D" parent="." unique_id=847416927]
+position = Vector2(1220, 5306.0005)
+scale = Vector2(3.7117345, 35.81818)
+texture = ExtResource("2_r0x5m")
 
 [node name="Player" parent="." unique_id=196855723 instance=ExtResource("1_wbfu4")]
 position = Vector2(0, -89)
@@ -246,20 +281,16 @@ lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_2bl17")
 script = ExtResource("3_u44n3")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1631660636]
-environment = SubResource("Environment_8t6a0")
-
 [node name="Loop" type="Area2D" parent="." unique_id=1926107430]
+scale = Vector2(0.99999994, 0.99999994)
 script = SubResource("GDScript_ddoks")
-
-[node name="Label" type="Label" parent="Loop" unique_id=1655773060]
-offset_right = 40.0
-offset_bottom = 23.0
-script = SubResource("GDScript_8t6a0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Loop" unique_id=314187815]
 position = Vector2(-17, -5933)
 shape = SubResource("RectangleShape2D_8t6a0")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1631660636]
+environment = SubResource("Environment_8t6a0")
 
 [node name="Asteroid Spawner" parent="." unique_id=149780 instance=ExtResource("8_joorw")]
 script = SubResource("GDScript_2bl17")
@@ -371,5 +402,12 @@ amount = 75
 speed_scale = 0.5
 process_material = SubResource("ParticleProcessMaterial_8t6a0")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1038302957]
+position = Vector2(757, 71)
+stream = ExtResource("14_yyih5")
+autoplay = true
+script = SubResource("GDScript_m4gww")
+
 [connection signal="body_entered" from="Loop" to="Loop" method="_on_body_entered"]
 [connection signal="body_entered" from="Loop" to="Camera" method="_on_loop_body_entered"]
+[connection signal="timeout" from="Asteroid Spawner/Timer" to="Black hole bottom" method="_on_timer_timeout"]

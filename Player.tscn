@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ck4vi7xgj77mu" path="res://pixil-frame-0 (3).png" id="1_xhfnw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t88pq"]
-size = Vector2(18, 26)
+size = Vector2(8, 7)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cxr5p"]
 atlas = ExtResource("1_kpjcp")
@@ -99,14 +99,12 @@ animations = [{
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1987095029]
-position = Vector2(0, -15)
+position = Vector2(0, -15.5)
 shape = SubResource("RectangleShape2D_t88pq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=430635207]
 position = Vector2(1, -17)
 scale = Vector2(0.7450495, 0.67727274)
 sprite_frames = SubResource("SpriteFrames_jepwt")
-animation = &"Death"
+animation = &"Idle"
 autoplay = "Idle"
-frame = 5
-frame_progress = 1.0
